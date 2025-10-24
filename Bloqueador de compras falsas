@@ -1,0 +1,32 @@
+<!-- Julio Cesar Bloqueador de compras falsas externas para todos os pixels Facebook na Shopify -->
+<script>
+!function(f,b,e,v,n,t,s) {
+    if(f.fbq) return;
+    n = f.fbq = function() {
+        // Interrompe eventos de compra falsos
+        if (arguments[1] === "Purchase" && typeof arguments[2].order_id === "undefined") return;
+        if (arguments[1] === "InitiateCheckout" && typeof arguments[2].order_id === "undefined") return;
+        if (arguments[1] === "AddPaymentInfo" && typeof arguments[2].order_id === "undefined") return;
+ 
+        // Continua com o processamento normal do Facebook Pixel
+        n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+    };
+    if (!f._fbq) f._fbq = n;
+    n.push = n;
+    n.loaded = !0;
+    n.version = '2.0';
+    n.queue = [];
+    
+    // Carrega a biblioteca do Facebook Pixel
+    t = b.createElement(e);
+    t.async = !0;
+    t.src = v;
+    s = b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t, s);
+}(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+ 
+// Inicializa todos os pixels automaticamente
+window.fbq('init', ''); // Não especifica o ID diretamente, funciona com pixels já carregados
+</script>
+<!-- Julio Cesar Bloqueador de compras falsas externas para todos os pixels Facebook na Shopify -->
+ 
